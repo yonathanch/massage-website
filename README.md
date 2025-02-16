@@ -1,1 +1,2 @@
-MASSAGE WEBSITE WITH REACT JS/TAILWIND
+#MASSAGE WEBSITE
+using react, tailwind, framer motion
