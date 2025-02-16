@@ -29,10 +29,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-      {/* <Navbar/>
-      <LandingPage></LandingPage>
-      <TreatmentList></TreatmentList>
-      <Footer></Footer> */}
     </>
   );
 }

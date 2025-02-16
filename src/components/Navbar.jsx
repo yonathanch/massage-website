@@ -1,143 +1,173 @@
-import { useState } from "react";
-import { HiMenuAlt3, HiSearch } from "react-icons/hi";
+import { useState, useEffect } from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { PiShoppingBag } from "react-icons/pi";
 import { HashLink as Link } from "react-router-hash-link";
 
 export default function Navbar() {
   const [dropDown, setDropDown] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
 
   const showDropDown = () => {
     setDropDown(!dropDown);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    const updateNavHeight = () => {
+      const navbar = document.getElementById("navbar");
+      if (navbar) {
+        setNavHeight(navbar.offsetHeight);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", updateNavHeight);
+    updateNavHeight(); // Set initial height
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateNavHeight);
+    };
+  }, []);
   return (
-    <header className="bg-[#1b1b1b]">
-      <nav className="w-full flex flex-col justify-center items-center lg:relative sticky top-0 z-50 bg-black lg:bg-transparent">
-        <div className="container mx-auto lg:w-full w-[95%]">
-          <div className="flex items-center justify-between border-b border-amber-600 py-6 lg:w-4/5 w-full mx-auto">
-            <span className="flex items-center gap-8 ml-auto">
-              <button
-                onClick={showDropDown}
-                className="lg:hidden text-[22px] cursor-pointer text-white"
-              >
-                {dropDown ? <MdClose /> : <HiMenuAlt3 />}
-              </button>
+    <>
+      <header
+        id="navbar"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          isScrolled ? "bg-transparent" : "bg-black"
+        }`}
+      >
+        <nav
+          className={`w-full flex flex-col justify-center items-center lg:relative sticky top-0 z-50 bg-black lg:bg-transparent ${
+            isScrolled ? "opacity-35" : "opacity-100"
+          }`}
+        >
+          <div className="container mx-auto lg:w-full w-[95%]">
+            <div className="flex items-center justify-between border-b border-amber-600 py-6 lg:w-4/5 w-full mx-auto">
+              <span className="flex items-center gap-8 ml-auto">
+                <button
+                  onClick={showDropDown}
+                  className="lg:hidden text-[22px] cursor-pointer text-white"
+                >
+                  {dropDown ? <MdClose /> : <HiMenuAlt3 />}
+                </button>
 
-              <PiShoppingBag size={24} className="text-white" />
+                <PiShoppingBag size={24} className="text-white" />
 
-              <button className="hidden lg:block bg-[#C2A74E] text-white text-[10px] font-semibold px-6 py-3 hover:bg-white hover:text-[#C2A74E] transition duration-200">
-                BOOK NOW
-              </button>
-            </span>
-          </div>
+                <a
+                  href="https://wa.me/6282210833987?text=hello I want to order a Massage GI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden lg:block bg-[#C2A74E] text-white text-[10px] font-semibold px-6 py-3 hover:bg-white hover:text-[#C2A74E] transition duration-200"
+                >
+                  BOOK NOW
+                </a>
+              </span>
+            </div>
 
-          <div className="hidden lg:flex justify-center gap-16 items-center mt-6">
-            <ul className="flex items-center xl:gap-12 gap-x-4 bg-black text-white border-3 rounded border-amber-200 px-4 py-2">
-              <img
-                src="/Massagetransparent.png"
-                alt="logo"
-                width={80}
-                className="opacity-80"
-              />
-              <Link
-                to="/"
-                className="text-sm hover:text-[#C2A74E] transition duration-200"
-              >
-                HOME
-              </Link>
-              <Link
-                to="/treatment"
-                className="text-sm hover:text-[#C2A74E] transition duration-200"
-              >
-                TREATMENT
-              </Link>
-              <Link
-                to="/location"
-                className="text-sm hover:text-[#C2A74E] transition duration-200"
-              >
-                LOCATION
-              </Link>
-              <Link
-                to="/about"
-                className="text-sm hover:text-[#C2A74E] transition duration-200"
-              >
-                ABOUT
-              </Link>
-            </ul>
-          </div>
-
-          {dropDown && (
-            <div className="lg:hidden fixed inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center">
-              <ul className="w-4/5 bg-black text-white border border-amber-200 rounded-lg p-6 text-center">
-                <li className="py-3 border-b border-gray-600">
-                  <a href="#" className="text-lg font-semibold">
-                    HOME
-                  </a>
-                </li>
-                <li className="py-3 border-b border-gray-600">
-                  <a href="#" className="text-lg font-semibold">
-                    TREATMENT
-                  </a>
-                </li>
-                <li className="py-3 border-b border-gray-600">
-                  <a href="#" className="text-lg font-semibold">
-                    LOCATION
-                  </a>
-                </li>
-                <li className="py-3">
-                  <a href="#" className="text-lg font-semibold">
-                    ABOUT US
-                  </a>
-                </li>
+            <div className="hidden lg:flex justify-center gap-16 items-center mt-6">
+              <ul className="flex items-center xl:gap-12 gap-x-4 bg-black text-white border-3 rounded border-amber-200 px-4 py-2">
+                <img
+                  src="/Massagetransparent.png"
+                  alt="logo"
+                  width={80}
+                  className="opacity-80"
+                />
+                <Link
+                  to="/"
+                  className="text-sm hover:text-[#C2A74E] transition duration-200"
+                >
+                  HOME
+                </Link>
+                <Link
+                  to="/treatment"
+                  className="text-sm hover:text-[#C2A74E] transition duration-200"
+                >
+                  TREATMENT
+                </Link>
+                <Link
+                  to="/location"
+                  className="text-sm hover:text-[#C2A74E] transition duration-200"
+                >
+                  LOCATION
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-sm hover:text-[#C2A74E] transition duration-200"
+                >
+                  ABOUT
+                </Link>
               </ul>
             </div>
-          )}
-        </div>
-      </nav>
-    </header>
 
-    // <nav className="w-full lg:pb-8 flex flex-col justify-center items-center lg:relative sticky top-0 z-50 lg:bg-tranparent bg-black">
-    //    <div className="container mx-auto lg:w-full w-[95%]">
-    //      <div className="flex item-center justify-between  border-[#e8e3da] lg:w-4/5 w-full mx-auto py-8 border-b border-amber-600 ">
-    //        <span className="flex items-center gap-8 ml-auto">
-    //             {dropDown? (
-    //                 <div onClick={showDropDown}className="lg:hidden text-[22px] cursor-pointer text-white">
-    //                     <MdClose />
-    //                 </div>
-    //             ):(
-    //                 <div onClick={showDropDown}className="lg:hidden text-[22px] cursor-pointer text-white">
-    //                     <HiMenuAlt3 />
-    //                 </div>
-    //             )}
-    //             <PiShoppingBag size={24} className="text-white"/>
+            {dropDown && (
+              <div className="lg:hidden fixed inset-0 bg-[#1b1b1b] bg-opacity-80 flex flex-col items-start ">
+                <div className="w-full bg-black px-6 py-4 flex justify-between items-center">
+                  <img src="/Massagetransparent.png" alt="logo" width={70} />
+                  <button
+                    onClick={() => setDropDown(false)}
+                    className="absolute top-8 right-6 text-white text-2xl"
+                  >
+                    <MdClose />
+                  </button>
+                </div>
+                <ul className=" text-white p-6 font-sans w-full ">
+                  <li className="py-3  border-b border-[#C2A74E]">
+                    <Link
+                      to="/"
+                      className="text-lg hover:text-[#C2A74E] transition duration-200 "
+                    >
+                      HOME
+                    </Link>
+                  </li>
+                  <li className="py-3 border-b border-[#C2A74E]">
+                    <Link
+                      to="/treatment"
+                      className="text-lg hover:text-[#C2A74E] transition duration-200"
+                    >
+                      TREATMENT
+                    </Link>
+                  </li>
+                  <li className="py-3 border-b border-[#C2A74E]">
+                    <Link
+                      to="/location"
+                      className="text-lg hover:text-[#C2A74E] transition duration-200"
+                    >
+                      LOCATION
+                    </Link>
+                  </li>
+                  <li className="py-3 border-b border-[#C2A74E]">
+                    <Link
+                      to="/about"
+                      className="text-lg hover:text-[#C2A74E] transition duration-200"
+                    >
+                      ABOUT
+                    </Link>
+                  </li>
+                </ul>
+                <div className="w-full mt-auto flex justify-center">
+                  <a
+                    href="https://wa.me/6282210833987?text=hello I want to order a Massage GI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-[70%] border border-[#C2A74E] flex justify-center text-[20px] font-mono hover:bg-white hover:text-[#C2A74E] transition duration-200  m-8 pt-2 pb-3 text-[#C2A74E]"
+                  >
+                    BOOK NOW
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+        </nav>
+      </header>
 
-    //             <button className="lg:block hidden bg-[#C2A74E] text-white text-[10px] font-semibold px-[29px] py-[11px] transition-bg hover:bg-white hover:text-[#C2A74E] transition-colors duration-200">BOOK NOW</button>
-    //         </span>
-    //      </div>
-
-    //      <div className="lg:w-full mx-auto h-full lg:flex hidden justify-center gap-16 items-center m-8 absolute top-10 left-0 ">
-    //         <ul className="flex items-center xl:gap-12 gap-x-4 max-lg:hidden bg-black text-white border-3 rounded  border-amber-200 p-3 mt-5">
-    //             <img src="/Massagetransparent.png" alt="logo" width={80} className="opacity-80"/>
-    //             <Link to="/" className="leading-normal no-underline text-sm hover:text-[#C2A74E] transition-colors duration-200"> HOME</Link>
-    //             <Link to="/treatment" className="leading-normal no-underline text-sm hover:text-[#C2A74E] transition-colors duration-200">TREATMENT</Link>
-    //             <Link to="/location" className="leading-normal no-underline text-sm hover:text-[#C2A74E] transition-colors duration-200">LOCATION</Link>
-    //             <Link to="/about" className="leading-normal no-underline text-sm hover:text-[#C2A74E] transition-colors duration-200">ABOUT</Link>
-    //         </ul>
-    //      </div>
-    //      {dropDown &&(
-    //     <div className="lg:hidden w-full h-full px-6 fixed top-30  transition-all">
-    //         <div className="w-full flex flex-col items-baseline gap-4">
-    //             <ul className="flex flex-col justify-center w-full">
-    //                 <a href="#" className="px-6 h-10 flex item-center leading-normal no-underline font-bold text-lg text-[15px] border-0 border-b border-[#ffffffc5] border border-solid ">HOME</a>
-    //                 <a href="#" className="px-6 h-10 flex item-center leading-normal no-underline font-bold text-lg text-[15px] border-0 border-b border-[#ffffff1a] border border-solid">TREATMENT</a>
-    //                 <a href="#" className="px-6 h-10 flex item-center leading-normal no-underline font-bold text-lg text-[15px] border-0 border-b border-[#ffffff1a] border border-solid">LOCATION</a>
-    //                 <a href="#" className="px-6 h-10 flex item-center leading-normal no-underline font-bold text-lg text-[15px] border-0 border-b border-[#ffffff1a] border border-solid">ABOUT US</a>
-    //             </ul>
-    //         </div>
-    //     </div>
-    //      )}
-    //     </div>
-    // </nav>
+      {/* nav tidak menutupi kontent */}
+      <div style={{ paddingTop: `${navHeight + -30}px` }}></div>
+    </>
   );
 }

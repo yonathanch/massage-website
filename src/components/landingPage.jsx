@@ -1,12 +1,15 @@
+import { motion } from "framer-motion";
 import { products } from "./product";
 import TreatmentList from "./TreatmentList";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+
 const LandingPage = () => {
   return (
     <>
-      <Navbar></Navbar>
-      <div className="relative w-full min-h-screen overflow-hidden h-158 ">
+      <Navbar />
+
+      <div className="relative w-full min-h-screen overflow-hidden h-[700px]">
         <video
           autoPlay
           loop
@@ -14,17 +17,39 @@ const LandingPage = () => {
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/bg-2.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-6">
-          <h1 className="text-5xl font-bold">AIRE ANCIENT BATHS BARCELONA</h1>
-          <p className="mt-4 text-lg">WHERE TIME DOES NOT EXIST</p>
-        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-6 pb-15"
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-mono leading-tight">
+            MASSAGE GI SANCTUARY OF <br /> RELAXATION
+          </h1>
+
+          <motion.a
+            href="#discover-all"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="border bg-white text-[#C2A74E] font-semibold px-6 py-3 rounded-lg shadow-md transition-all duration-300 hover:bg-[#1b1b1b] hover:text-white mt-6 font-serif"
+          >
+            Discover All
+          </motion.a>
+        </motion.div>
       </div>
 
-      <section className="bg-white py-16 px-6 lg:px-24">
-        <div className="max-w-6xl mx-auto">
+      {/* Discover Section */}
+      <section className="bg-white py-16 px-6 lg:px-24" id="discover-all">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="max-w-6xl mx-auto"
+        >
           <h2 className="text-center text-lg font-semibold font-serif text-[#C2A74E] tracking-widest">
             TRADITIONAL MASSAGE
           </h2>
@@ -36,14 +61,26 @@ const LandingPage = () => {
           </p>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mt-8">
-            <div className="relative pt-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="relative pt-8"
+            >
               <img
                 src="/bali.jpg"
                 alt="Balinese Massage"
                 className="w-full h-72 lg:h-96 object-cover rounded-xl shadow-md"
               />
-            </div>
-            <div className="text-center lg:text-left">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="text-center lg:text-left"
+            >
               <h3 className="text-2xl font-semibold text-gray-800">
                 Relax With Balinese Massage
               </h3>
@@ -53,53 +90,19 @@ const LandingPage = () => {
                 massage uses aromatherapy oils to help relieve muscle tension,
                 improve blood circulation, and provide deep relaxation.
               </p>
-              <div className="mt-4 flex justify-end">
-                <img src="/bali2.jpg" alt="Balinese Massage" width={155} />
-              </div>
-            </div>
+            </motion.div>
           </div>
-
-          <div className="pt-8 mt-8">
-            <h2 className="text-center text-lg font-semibold tracking-widest pt-5 font-serif text-[#C2A74E]">
-              RELAXATION MASSAGE
-            </h2>
-            <p className="mt-2 text-gray-600 text-center pt-5 max-w-prose mx-auto">
-              Relaxation Massage is a gentle massage designed to provide
-              relaxation and reduce stress.
-            </p>
-
-            <div className="grid lg:grid-cols-2 gap-12 items-center mt-8">
-              <div className="text-center lg:text-left">
-                <h3 className="text-2xl font-semibold text-gray-800">
-                  Massaging slowly and gently in a calm manner.
-                </h3>
-                <p className="mt-2 text-gray-600 pt-5 max-w-prose">
-                  This technique uses slow, soothing strokes with light to
-                  medium pressure to stimulate blood circulation and relax the
-                  muscles. It is perfect for those looking to unwind and
-                  experience a calming massage session.
-                </p>
-                <div className="mt-4 flex justify-start">
-                  <img
-                    src="/facemassage.jpg"
-                    alt="Face Massage"
-                    className="h-[180px]"
-                  />
-                </div>
-              </div>
-              <div className="relative pt-8">
-                <img
-                  src="/relaxation2.jpg"
-                  alt="Relaxation Massage"
-                  className="w-full h-72 lg:h-96 object-cover rounded-xl shadow-md"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 bg-[#1b1b1b] text-white px-10 py-12 gap-8">
+      {/* History Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 bg-[#1b1b1b] text-white px-10 py-12 gap-8"
+      >
         <div className="relative">
           <img
             src="/history.jpg"
@@ -112,119 +115,17 @@ const LandingPage = () => {
             HISTORY
           </h2>
           <p className="text-lg leading-relaxed text-white max-w-prose">
-            AIRE Barcelona preserves the authenticity of the original
-            architecture of the building, an 18th century food warehouse, which
-            can be seen through the two skylights above the Tepidarium, through
-            which the goods were brought in and then transported to the famous
-            Born Market.
+            Massage GI is a sanctuary of relaxation and body care, inspired by
+            the traditional Balinese massage. Founded in 2018, we are dedicated
+            to providing a rejuvenating and calming spa experience with the
+            warmth of Indonesian hospitality.
           </p>
         </div>
-      </section>
+      </motion.section>
+
       <TreatmentList products={products} limit={3} />
-      <Footer></Footer>
 
-      {/* <Navbar></Navbar>
-        <div className="relative w-full h-158 overflow-hidden">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          className="absolute w-full h-full object-cover"
-        >
-          <source src="/bg-2.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center">
-          <h1 className="text-5xl font-bold">AIRE ANCIENT BATHS BARCELONA</h1>
-          <p className="mt-4 text-lg">WHERE TIME DOES NOT EXIST</p>
-        </div>
-      </div>
-  <div>
-   <section className="bg-white py-16 px-6 lg:px-24">
-   <div className="max-w-6xl mx-auto">
-     <h2 className="text-center text-lg font-semibold font-serif text-[#C2A74E] tracking-widest ">
-     TRADITIONAL MASSAGE
-     </h2>
-     <p className="text-center pt-5 font-sans text-gray-600">Balinese Massage is a traditional massage technique from Bali that combines gentle strokes, stretching, acupressure, and aromatherapy  This massage aims to relax the body, improve blood circulation, and relieve stress and muscle tension.</p>
-     <div className="grid lg:grid-cols-2 gap-12 items-center mt-8">
-       <div className="relative pt-8">
-         <img
-           src="/bali.jpg" 
-           alt="Tepidarium"
-           className="w-full h-72 lg:h-96 object-cover rounded-xl shadow-md"
-         />
-       </div>
-       <div className="text-center lg:text-left">
-         <h3 className="text-2xl font-semibold text-gray-800">
-           Relax With Balinese Massage
-         </h3>
-         <p className="mt-2 text-gray-600 pt-5">
-         A traditional massage technique from Bali that combines long strokes, deep pressure, acupressure, and reflexology. This massage uses aromatherapy oils to help relieve muscle tension, improve blood circulation, and provide deep relaxation. It is perfect for those seeking body and mind rejuvenation.
-         </p>
-         <div className="mt-4 flex justify-end">
-            <img src="bali2.jpg" alt=""  width={155}/>
-         </div>
-       </div>
-       
-     
-     </div>
-      <div className="pt-8 mt-8">
-        <h2 className="text-center text-lg font-semibold tracking-widest pt-8 font-serif text-[#C2A74E] ">
-          Relaxation Massage
-        </h2>
-        <p className="mt-2 text-gray-600 text-center pt-5">
-        Relaxation Massage is a gentle massage designed to provide relaxation and reduce stress. 
-        </p>
-      
-      <div className="grid lg:grid-cols-2 gap-12 items-center mt-8">
-      <div className="text-center lg:text-left">
-         <h3 className="text-2xl font-semibold text-gray-800">
-         Massaging slowly and gently in a calm manner.
-         </h3>
-         <p className="mt-2 text-gray-600 pt-5">
-         This technique uses slow, soothing strokes with light to medium pressure to stimulate blood circulation and relax the muscles. It is perfect for those looking to unwind and experience a calming massage session.
-         </p>
-         <div className="mt-4 flex justify-start">
-            <img src="/facemassage.jpg" alt="" className="h-[180px]"/>
-         </div>
-       </div>
-       <div className="relative pt-8">
-         <img
-           src="/relaxation2.jpg" 
-           alt="Tepidarium"
-           className="w-full h-72 lg:h-96 object-cover rounded-xl shadow-md"
-         />
-       </div>
-      </div>
-        
-      </div>
-   </div>
- </section>
-
-  <section className="grid grid-cols-1 md:grid-cols-2 bg-[#1b1b1b] text-white px-10 py-12 gap-8">
-      <div className="">
-        <img
-          src="/history.jpg" 
-          alt="Spa"
-          width={800}
-          className="rounded-lg object-cover h-[500px] "
-        />
-      </div>
-
-      <div className="flex flex-col justify-center px-6">
-        <h2 className="text-2xl font-semibold mb-4 text-[#f4f3f1] font-mono">HISTORY</h2>
-        <p className="text-lg leading-relaxed text-white font-sans">
-          AIRE Barcelona preserves the authenticity of the original architecture
-          of the building, an 18th century food warehouse, which can be seen
-          through the two skylights above the Tepidarium, through which the
-          goods were brought in and then transported to the famous Born Market.
-        </p>
-      </div>
-  </section>
-  <TreatmentList products={products} limit={3} />
-  </div>
-  <Footer></Footer> */}
+      <Footer />
     </>
   );
 };
