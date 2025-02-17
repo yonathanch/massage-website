@@ -3,7 +3,7 @@ import Aos from "aos";
 import LandingPage from "./components/LandingPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Treatment from "./components/Treatment";
-import About from "./components/about";
+import About from "./components/About";
 import Location from "./components/Location";
 
 function App() {
