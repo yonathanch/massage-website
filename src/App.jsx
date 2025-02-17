@@ -9,7 +9,7 @@ import Location from "./components/Location";
 function App() {
   useEffect(() => {
     Aos.init({
-      duration: 1500,
+      duration: 1000,
     });
   }, []);
 
